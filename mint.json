@@ -2,10 +2,10 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Wool Ball",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo.png",
+    "dark": "/logo/logo.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -85,7 +85,7 @@
         "api-reference/endpoint/facial-emotion",
         "api-reference/endpoint/image-classification",
         "api-reference/endpoint/zero-shot-image-classification",
-        "api-reference/endpoint/character-to-image"
+        "api-reference/endpoint/char-to-image"
       ]
     }
   ],

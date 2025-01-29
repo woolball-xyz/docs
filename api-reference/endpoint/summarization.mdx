@@ -1,10 +1,10 @@
 ---
 title: 'Text Summarization'
 api: 'POST https://api.woolball.xyz/v1/summarization'
-description: 'Generate concise summaries of text content'
+description: 'Generate concise summaries from text'
 ---
 
-Generate concise summaries of text content using our distributed browser network.
+Generate concise summaries from text using our distributed browser network.
 
 ## Request
 
@@ -12,36 +12,37 @@ Generate concise summaries of text content using our distributed browser network
   The text to summarize
 </ParamField>
 
-<ParamField body="max_length" type="integer">
-  Maximum length of the summary in characters. Default is 150
-</ParamField>
-
 <RequestExample>
 ```bash
 curl -X POST https://api.woolball.xyz/v1/summarization \
-  -H "Authorization: Bearer API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "text": "Long text content to summarize...",
-    "max_length": 150
-  }'
+-H "Authorization: Bearer API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "text": "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans."
+}'
 ```
 
 ```javascript
-fetch('https://api.woolball.xyz/v1/summarization', {
+const fetch = require('node-fetch');
+
+const apiBaseUrl = "https://api.woolball.xyz";
+const endpoint = "/v1/summarization";
+
+const body = {
+  text: "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans."
+};
+
+fetch(apiBaseUrl + endpoint, {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer API_KEY',
-    'Content-Type': 'application/json'
+      'Authorization': 'Bearer API_KEY',
+      'Content-Type': 'application/json'
   },
-  body: JSON.stringify({
-    text: 'Long text content to summarize...',
-    max_length: 150
-  })
+  body: JSON.stringify(body)
 })
 .then(res => res.json())
 .then(data => {
-  console.log('Summary:', data.data);
+  console.log("Summary:", data.data);
 })
 .catch(console.error);
 ```
@@ -49,17 +50,19 @@ fetch('https://api.woolball.xyz/v1/summarization', {
 ```python
 import requests
 
-response = requests.post(
-    'https://api.woolball.xyz/v1/summarization',
-    headers={
-        'Authorization': 'Bearer API_KEY',
-        'Content-Type': 'application/json'
-    },
-    json={
-        'text': 'Long text content to summarize...',
-        'max_length': 150
-    }
-)
+api_base_url = "https://api.woolball.xyz"
+endpoint = "/v1/summarization"
+
+headers = {
+  "Authorization": "Bearer API_KEY",
+  "Content-Type": "application/json"
+}
+
+data = {
+  "text": "Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans."
+}
+
+response = requests.post(api_base_url + endpoint, headers=headers, json=data)
 data = response.json()
 print(f"Summary: {data['data']}")
 ```
@@ -72,14 +75,14 @@ print(f"Summary: {data['data']}")
 </ResponseField>
 
 <ResponseField name="data" type="string">
-  The summarized text
+  The generated summary text
 </ResponseField>
 
 <ResponseExample>
 ```json
 {
   "success": true,
-  "data": "Concise summary of the input text..."
+  "data": "AI is machine-based intelligence that differs from natural intelligence found in animals and humans."
 }
 ```
 </ResponseExample>

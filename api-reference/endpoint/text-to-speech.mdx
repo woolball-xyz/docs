@@ -1,19 +1,19 @@
 ---
 title: 'Text to Speech'
 api: 'GET https://api.woolball.xyz/v1/text-to-speech/{targetLanguage}'
-description: 'Convert text to speech in multiple languages'
+description: 'Convert text to natural-sounding speech'
 ---
 
-Convert text to speech using our distributed browser network.
+Convert text to natural-sounding speech in various languages using our distributed browser network.
 
 ## Request
 
-<ParamField query="text" type="string" required>
-  The text to convert to speech
-</ParamField>
-
 <ParamField path="targetLanguage" type="string" required>
   Target language code (e.g., "pt", "en", "es")
+</ParamField>
+
+<ParamField query="text" type="string" required>
+  The text to convert to speech
 </ParamField>
 
 <RequestExample>
@@ -23,7 +23,7 @@ curl -s -H "Authorization: Bearer API_KEY" "https://api.woolball.xyz/v1/text-to-
 
 ```javascript
 const input = "Olá mundo";
-const targetLanguage = "pt"; // Alterar para "en", "es" conforme necessário
+const targetLanguage = "pt"; // Change to "en", "es" as needed
 var url = `https://api.woolball.xyz/v1/text-to-speech/${targetLanguage}?text=${input}`;
 
 fetch(url, {
@@ -35,7 +35,7 @@ fetch(url, {
   const byteLength = atob(audioBase64).length;
   const sizeInMB = (byteLength / (1024 * 1024)).toFixed(2);
 
-  console.log(`O tamanho do áudio é de ${sizeInMB} MB`);
+  console.log(`Audio size: ${sizeInMB} MB`);
 })
 .catch(console.error);
 ```
@@ -45,7 +45,7 @@ import requests
 import base64
 
 api_base_url = "https://api.woolball.xyz"
-target_language = "pt"  # Alterar para "en", "es" conforme necessário
+target_language = "pt"  # Change to "en", "es" as needed
 endpoint = f"/v1/text-to-speech/{target_language}?text=Olá mundo"
 
 headers = {"Authorization": "Bearer API_KEY"}
@@ -54,7 +54,7 @@ data = response.json()
 audio_base64 = data["data"]
 audio_bytes = base64.b64decode(audio_base64)
 
-print(f"Tamanho do áudio: {len(audio_bytes) / (1024 * 1024):.2f} MB")
+print(f"Audio size: {len(audio_bytes) / (1024 * 1024):.2f} MB")
 ```
 </RequestExample>
 

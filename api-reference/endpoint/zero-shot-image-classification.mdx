@@ -1,6 +1,6 @@
 ---
 title: 'Zero-Shot Image Classification'
-api: 'POST https://api.woolball.xyz/v1/zero-shot-image-classification'
+api: 'POST https://api.woolball.xyz/v1/image-zero-shot'
 description: 'Classify images into custom categories without training'
 ---
 
@@ -13,39 +13,41 @@ Classify images into custom categories without predefined training using our dis
 </ParamField>
 
 <ParamField body="labels" type="array" required>
-  Array of possible labels for classification
-</ParamField>
-
-<ParamField body="multi_label" type="boolean">
-  Allow multiple labels per image. Default is false
+  Array of possible labels for classification (e.g., ["cat", "dog", "tree", "human"])
 </ParamField>
 
 <RequestExample>
 ```bash
-curl -X POST https://api.woolball.xyz/v1/zero-shot-image-classification \
-  -H "Authorization: Bearer API_KEY" \
-  -H "Content-Type: multipart/form-data" \
-  -F "image=@image.jpg" \
-  -F "labels=[\"sunny\", \"cloudy\", \"rainy\"]" \
-  -F "multi_label=false"
+curl -X POST https://api.woolball.xyz/v1/image-zero-shot \
+-H "Authorization: Bearer API_KEY" \
+-F "image=@img.png" \
+-F "labels=[\"cat\", \"dog\", \"tree\", \"human\"]"
 ```
 
 ```javascript
-const formData = new FormData();
-formData.append('image', imageBlob);
-formData.append('labels', JSON.stringify(['sunny', 'cloudy', 'rainy']));
-formData.append('multi_label', false);
+const fs = require('fs');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 
-fetch('https://api.woolball.xyz/v1/zero-shot-image-classification', {
+const apiBaseUrl = "https://api.woolball.xyz";
+const endpoint = "/v1/image-zero-shot";
+
+const formData = new FormData();
+formData.append('image', fs.createReadStream('img.png'));
+formData.append('labels', JSON.stringify(["cat", "dog", "tree", "human"]));
+
+fetch(apiBaseUrl + endpoint, {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer API_KEY'
+      'Authorization': 'Bearer API_KEY'
   },
   body: formData
 })
 .then(res => res.json())
 .then(data => {
-  console.log('Classifications:', data.data);
+  data.data.forEach(result => {
+      console.log(result);
+  });
 })
 .catch(console.error);
 ```
@@ -53,24 +55,17 @@ fetch('https://api.woolball.xyz/v1/zero-shot-image-classification', {
 ```python
 import requests
 
-files = {
-    'image': open('image.jpg', 'rb')
-}
-data = {
-    'labels': ['sunny', 'cloudy', 'rainy'],
-    'multi_label': False
-}
+api_base_url = "https://api.woolball.xyz"
+endpoint = "/v1/image-zero-shot"
 
-response = requests.post(
-    'https://api.woolball.xyz/v1/zero-shot-image-classification',
-    headers={
-        'Authorization': 'Bearer API_KEY'
-    },
-    files=files,
-    data=data
-)
+headers = {"Authorization": "Bearer API_KEY"}
+files = {'image': open('img.png', 'rb')}
+data = {'labels': '["cat", "dog", "tree", "human"]'}
+
+response = requests.post(api_base_url + endpoint, headers=headers, files=files, data=data)
 data = response.json()
-print(f"Classifications: {data['data']}")
+for result in data['data']:
+  print(f"Label: {result['label']}, Score: {result['score']}")
 ```
 </RequestExample>
 
@@ -86,7 +81,7 @@ print(f"Classifications: {data['data']}")
     <ResponseField name="label" type="string">
       The predicted label
     </ResponseField>
-    <ResponseField name="confidence" type="number">
+    <ResponseField name="score" type="number">
       Confidence score between 0 and 1
     </ResponseField>
   </Expandable>
@@ -98,16 +93,20 @@ print(f"Classifications: {data['data']}")
   "success": true,
   "data": [
     {
-      "label": "sunny",
-      "confidence": 0.85
+      "label": "cat",
+      "score": 0.92
     },
     {
-      "label": "cloudy",
-      "confidence": 0.12
+      "label": "dog",
+      "score": 0.05
     },
     {
-      "label": "rainy",
-      "confidence": 0.03
+      "label": "tree",
+      "score": 0.02
+    },
+    {
+      "label": "human",
+      "score": 0.01
     }
   ]
 }

@@ -1,45 +1,45 @@
 ---
 title: 'Facial Emotion Analysis'
-api: 'POST https://api.woolball.xyz/v1/facial-emotion'
-description: 'Analyze emotions from facial expressions in images'
+api: 'POST https://api.woolball.xyz/v1/image-facial-emotions'
+description: 'Analyze emotions in facial images'
 ---
 
-Analyze emotions from facial expressions in images using our distributed browser network.
+Analyze emotions in facial images using our distributed browser network.
 
 ## Request
 
 <ParamField body="image" type="blob" required>
-  The image file to analyze (base64 encoded)
-</ParamField>
-
-<ParamField body="detect_multiple" type="boolean">
-  Whether to detect emotions for multiple faces in the image. Default is false
+  The image file to analyze
 </ParamField>
 
 <RequestExample>
 ```bash
-curl -X POST https://api.woolball.xyz/v1/facial-emotion \
-  -H "Authorization: Bearer API_KEY" \
-  -H "Content-Type: multipart/form-data" \
-  -F "image=@face.jpg" \
-  -F "detect_multiple=false"
+curl -X POST https://api.woolball.xyz/v1/image-facial-emotions \
+-H "Authorization: Bearer API_KEY" \
+-F "image=@img.png"
 ```
 
 ```javascript
-const formData = new FormData();
-formData.append('image', imageBlob);
-formData.append('detect_multiple', false);
+const fs = require('fs');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 
-fetch('https://api.woolball.xyz/v1/facial-emotion', {
+const apiBaseUrl = "https://api.woolball.xyz";
+const endpoint = "/v1/image-facial-emotions";
+
+const formData = new FormData();
+formData.append('image', fs.createReadStream('img.png'));
+
+fetch(apiBaseUrl + endpoint, {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer API_KEY'
+      'Authorization': 'Bearer API_KEY'
   },
   body: formData
 })
 .then(res => res.json())
 .then(data => {
-  console.log('Emotions:', data.data);
+  console.log("Detected Emotions:", data.data);
 })
 .catch(console.error);
 ```
@@ -47,23 +47,15 @@ fetch('https://api.woolball.xyz/v1/facial-emotion', {
 ```python
 import requests
 
-files = {
-    'image': open('face.jpg', 'rb')
-}
-data = {
-    'detect_multiple': False
-}
+api_base_url = "https://api.woolball.xyz"
+endpoint = "/v1/image-facial-emotions"
 
-response = requests.post(
-    'https://api.woolball.xyz/v1/facial-emotion',
-    headers={
-        'Authorization': 'Bearer API_KEY'
-    },
-    files=files,
-    data=data
-)
+headers = {"Authorization": "Bearer API_KEY"}
+files = {'image': open('img.png', 'rb')}
+
+response = requests.post(api_base_url + endpoint, headers=headers, files=files)
 data = response.json()
-print(f"Emotions: {data['data']}")
+print(f"Detected Emotions: {data['data']}")
 ```
 </RequestExample>
 
@@ -74,28 +66,28 @@ print(f"Emotions: {data['data']}")
 </ResponseField>
 
 <ResponseField name="data" type="array">
-  Array of detected emotions
+  Array of detected emotions and their locations
   <Expandable title="properties">
     <ResponseField name="emotion" type="string">
-      The detected emotion (e.g., "happy", "sad", "angry", "neutral")
+      The detected emotion (e.g., "happy", "sad", "angry", etc.)
     </ResponseField>
     <ResponseField name="confidence" type="number">
       Confidence score between 0 and 1
     </ResponseField>
-    <ResponseField name="face_location" type="object">
+    <ResponseField name="location" type="object">
       Location of the face in the image
       <Expandable title="properties">
-        <ResponseField name="x" type="integer">
-          X coordinate of face bounding box
+        <ResponseField name="x" type="number">
+          X coordinate of the face bounding box
         </ResponseField>
-        <ResponseField name="y" type="integer">
-          Y coordinate of face bounding box
+        <ResponseField name="y" type="number">
+          Y coordinate of the face bounding box
         </ResponseField>
-        <ResponseField name="width" type="integer">
-          Width of face bounding box
+        <ResponseField name="width" type="number">
+          Width of the face bounding box
         </ResponseField>
-        <ResponseField name="height" type="integer">
-          Height of face bounding box
+        <ResponseField name="height" type="number">
+          Height of the face bounding box
         </ResponseField>
       </Expandable>
     </ResponseField>
@@ -109,8 +101,8 @@ print(f"Emotions: {data['data']}")
   "data": [
     {
       "emotion": "happy",
-      "confidence": 0.92,
-      "face_location": {
+      "confidence": 0.95,
+      "location": {
         "x": 100,
         "y": 150,
         "width": 200,

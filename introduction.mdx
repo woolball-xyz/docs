@@ -1,5 +1,5 @@
 ---
-title: 'Welcome to Wool Ball'
+title: 'Introduction'
 description: 'Learn about Wool Ball - the client-as-server network for AI processing'
 ---
 
@@ -46,7 +46,11 @@ Wool Ball is an innovative client-as-server network that enables browsers to pro
 
 ## Make Your First API Call
 
-Get started with Wool Ball by making your first API call. Here's a simple example using our text generation endpoint:
+
+Create an API key by visiting the [dashboard](https://woolball.xyz/Identity/Account/Manage).
+
+
+Here's a simple example using our text generation endpoint:
 
 ```bash
 curl -X GET "https://api.woolball.xyz/v1/completions?Text=Tell%20me%20a%20joke&Model=HuggingFaceTB/SmolLM2-135M-Instruct" \
@@ -57,31 +61,31 @@ This will return a response like:
 
 ```json
 {
-  "success": true,
   "data": "Why did the scarecrow win an award? Because he was outstanding in his field!"
 }
 ```
 
 ## Available AI Services
-
 <CardGroup cols={2}>
   <Card
     title="Text Services"
     icon="text-size"
+    href="/api-reference/text"
   >
    
   </Card>
   <Card
     title="Audio Services"
     icon="audio"
+    href="/api-reference/audio"
   >
   
   </Card>
   <Card
     title="Image Services"
     icon="image"
+    href="/api-reference/image"
   >
-  
   </Card>
 </CardGroup>
 

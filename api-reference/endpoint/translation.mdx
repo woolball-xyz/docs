@@ -4,50 +4,49 @@ api: 'POST https://api.woolball.xyz/v1/translation'
 description: 'Translate text between languages'
 ---
 
-Translate text between languages using our distributed browser network.
+Translate text between different languages using our distributed browser network.
 
 ## Request
 
-<ParamField body="text" type="string" required>
+<ParamField body="Text" type="string" required>
   The text to translate
 </ParamField>
 
-<ParamField body="source_language" type="string">
-  Source language code (e.g., "pt", "en", "es"). Default is auto-detect.
+<ParamField body="SrcLang" type="string" required>
+  Source language code (e.g., "por_Latn" for Portuguese)
 </ParamField>
 
-<ParamField body="target_language" type="string" required>
-  Target language code (e.g., "pt", "en", "es")
+<ParamField body="TgtLang" type="string" required>
+  Target language code (e.g., "eng_Latn" for English)
 </ParamField>
 
 <RequestExample>
 ```bash
 curl -X POST https://api.woolball.xyz/v1/translation \
-  -H "Authorization: Bearer API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "text": "Hello World",
-    "source_language": "en",
-    "target_language": "pt"
-  }'
+-H "Authorization: Bearer API_KEY" \
+-H "Content-Type: application/json" \
+-d '{"Text": "Olá, mundo!", "SrcLang": "por_Latn", "TgtLang": "eng_Latn"}'
 ```
 
 ```javascript
-fetch('https://api.woolball.xyz/v1/translation', {
+const apiBaseUrl = "https://api.woolball.xyz";
+const endpoint = "/v1/translation";
+
+fetch(apiBaseUrl + endpoint, {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer API_KEY',
-    'Content-Type': 'application/json'
+      'Authorization': 'Bearer API_KEY',
+      'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    text: 'Hello World',
-    source_language: 'en',
-    target_language: 'pt'
+      Text: "Olá, mundo!",
+      SrcLang: "por_Latn",
+      TgtLang: "eng_Latn"
   })
 })
 .then(res => res.json())
 .then(data => {
-  console.log('Translated Text:', data.data);
+  console.log("Translated Text:", data.data);
 })
 .catch(console.error);
 ```
@@ -55,18 +54,20 @@ fetch('https://api.woolball.xyz/v1/translation', {
 ```python
 import requests
 
-response = requests.post(
-    'https://api.woolball.xyz/v1/translation',
-    headers={
-        'Authorization': 'Bearer API_KEY',
-        'Content-Type': 'application/json'
-    },
-    json={
-        'text': 'Hello World',
-        'source_language': 'en',
-        'target_language': 'pt'
-    }
-)
+api_base_url = "https://api.woolball.xyz"
+endpoint = "/v1/translation"
+
+headers = {
+  "Authorization": "Bearer API_KEY",
+  "Content-Type": "application/json"
+}
+payload = {
+  "Text": "Olá, mundo!",
+  "SrcLang": "por_Latn",
+  "TgtLang": "eng_Latn"
+}
+
+response = requests.post(api_base_url + endpoint, headers=headers, json=payload)
 data = response.json()
 print(f"Translated Text: {data['data']}")
 ```
@@ -86,7 +87,7 @@ print(f"Translated Text: {data['data']}")
 ```json
 {
   "success": true,
-  "data": "Olá Mundo"
+  "data": "Hello, world!"
 }
 ```
 </ResponseExample>
