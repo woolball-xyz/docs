@@ -1,0 +1,116 @@
+---
+title: 'Image Classification'
+api: 'POST https://api.woolball.xyz/v1/image-classification'
+description: 'Classify images into predefined categories'
+---
+
+Classify images into predefined categories using our distributed browser network.
+
+## Request
+
+<ParamField body="image" type="blob" required>
+  The image file to classify
+</ParamField>
+
+<ParamField body="confidence_threshold" type="number">
+  Minimum confidence score to include in results (0-1). Default is 0.5
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/image-classification \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F "image=@image.jpg" \
+  -F "confidence_threshold=0.5"
+```
+
+```javascript
+const formData = new FormData();
+formData.append('image', imageBlob);
+formData.append('confidence_threshold', 0.5);
+
+fetch('https://api.woolball.xyz/v1/image-classification', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY'
+  },
+  body: formData
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Classifications:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+files = {
+    'image': open('image.jpg', 'rb')
+}
+data = {
+    'confidence_threshold': 0.5
+}
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/image-classification',
+    headers={
+        'Authorization': 'Bearer API_KEY'
+    },
+    files=files,
+    data=data
+)
+data = response.json()
+print(f"Classifications: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of classification results
+  <Expandable title="properties">
+    <ResponseField name="category" type="string">
+      The predicted category
+    </ResponseField>
+    <ResponseField name="confidence" type="number">
+      Confidence score between 0 and 1
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "category": "dog",
+      "confidence": 0.95
+    },
+    {
+      "category": "animal",
+      "confidence": 0.98
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.02 per image
+- 90% cheaper than Azure Computer Vision API
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Maximum image size: 5MB
+- Supported formats: JPG, PNG
+- Returns up to 5 top categories per image

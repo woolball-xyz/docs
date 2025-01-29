@@ -1,0 +1,135 @@
+---
+title: 'Facial Emotion Analysis'
+api: 'POST https://api.woolball.xyz/v1/facial-emotion'
+description: 'Analyze emotions from facial expressions in images'
+---
+
+Analyze emotions from facial expressions in images using our distributed browser network.
+
+## Request
+
+<ParamField body="image" type="blob" required>
+  The image file to analyze (base64 encoded)
+</ParamField>
+
+<ParamField body="detect_multiple" type="boolean">
+  Whether to detect emotions for multiple faces in the image. Default is false
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/facial-emotion \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F "image=@face.jpg" \
+  -F "detect_multiple=false"
+```
+
+```javascript
+const formData = new FormData();
+formData.append('image', imageBlob);
+formData.append('detect_multiple', false);
+
+fetch('https://api.woolball.xyz/v1/facial-emotion', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY'
+  },
+  body: formData
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Emotions:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+files = {
+    'image': open('face.jpg', 'rb')
+}
+data = {
+    'detect_multiple': False
+}
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/facial-emotion',
+    headers={
+        'Authorization': 'Bearer API_KEY'
+    },
+    files=files,
+    data=data
+)
+data = response.json()
+print(f"Emotions: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of detected emotions
+  <Expandable title="properties">
+    <ResponseField name="emotion" type="string">
+      The detected emotion (e.g., "happy", "sad", "angry", "neutral")
+    </ResponseField>
+    <ResponseField name="confidence" type="number">
+      Confidence score between 0 and 1
+    </ResponseField>
+    <ResponseField name="face_location" type="object">
+      Location of the face in the image
+      <Expandable title="properties">
+        <ResponseField name="x" type="integer">
+          X coordinate of face bounding box
+        </ResponseField>
+        <ResponseField name="y" type="integer">
+          Y coordinate of face bounding box
+        </ResponseField>
+        <ResponseField name="width" type="integer">
+          Width of face bounding box
+        </ResponseField>
+        <ResponseField name="height" type="integer">
+          Height of face bounding box
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "emotion": "happy",
+      "confidence": 0.92,
+      "face_location": {
+        "x": 100,
+        "y": 150,
+        "width": 200,
+        "height": 200
+      }
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.02 per million characters
+- 99% cheaper than Azure Face API
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Maximum image size: 5MB
+- Supported formats: JPG, PNG
+- Maximum faces per image: 10

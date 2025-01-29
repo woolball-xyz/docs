@@ -1,0 +1,77 @@
+---
+title: 'Text Generation'
+api: 'GET https://api.woolball.xyz/v1/completions'
+description: 'Generate AI-powered text content'
+---
+
+Generate text content using our distributed browser network.
+
+## Request
+
+<ParamField query="Text" type="string" required>
+  The text prompt to generate from
+</ParamField>
+
+<ParamField query="Model" type="string">
+  The model to use for text generation. Default is "HuggingFaceTB/SmolLM2-135M-Instruct"
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X GET "https://api.woolball.xyz/v1/completions?Text=Olá,%20mundo!&Model=HuggingFaceTB/SmolLM2-135M-Instruct" \
+  -H "Authorization: Bearer API_KEY"
+```
+
+```javascript
+const text = "Olá, mundo!";
+const model = "HuggingFaceTB/SmolLM2-135M-Instruct";
+const url = `https://api.woolball.xyz/v1/completions?Text=${encodeURIComponent(text)}&Model=${encodeURIComponent(model)}`;
+
+fetch(url, {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer API_KEY'
+  }
+})
+.then(res => res.json())
+.then(data => {
+  console.log("Texto Gerado:", data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+text = "Olá, mundo!"
+model = "HuggingFaceTB/SmolLM2-135M-Instruct"
+url = f"https://api.woolball.xyz/v1/completions?Text={text}&Model={model}"
+
+headers = {
+  "Authorization": "Bearer API_KEY"
+}
+
+response = requests.get(url, headers=headers)
+data = response.json()
+print(f"Texto Gerado: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="string">
+  The generated text
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": "Generated text content..."
+}
+```
+</ResponseExample>

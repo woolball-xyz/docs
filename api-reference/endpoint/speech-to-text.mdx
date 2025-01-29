@@ -1,0 +1,144 @@
+---
+title: 'Speech to Text'
+api: 'POST https://api.woolball.xyz/v1/speech-to-text'
+description: 'Convert speech audio to text'
+---
+
+Convert speech audio to text using our distributed browser network.
+
+## Request
+
+<ParamField body="audio" type="blob" required>
+  The audio file to transcribe (base64 encoded)
+</ParamField>
+
+<ParamField body="outputLanguage" type="string">
+  Target language for transcription (e.g., "en", "pt", "es", "fr", etc.). Default is English.
+</ParamField>
+
+<ParamField body="returnTimestamps" type="boolean">
+  Whether to include word-level timestamps in the output. Default is false.
+</ParamField>
+
+<ParamField body="model" type="string">
+  The model to use for transcription. Default is the most accurate available model.
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/speech-to-text \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F "audio=@audio.wav" \
+  -F "outputLanguage=en" \
+  -F "returnTimestamps=true" \
+  -F "model=default"
+```
+
+```javascript
+const formData = new FormData();
+formData.append('audio', audioBlob);
+formData.append('outputLanguage', 'en');
+formData.append('returnTimestamps', true);
+formData.append('model', 'default');
+
+fetch('https://api.woolball.xyz/v1/speech-to-text', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY'
+  },
+  body: formData
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Transcription:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+files = {
+    'audio': open('audio.wav', 'rb')
+}
+data = {
+    'outputLanguage': 'en',
+    'returnTimestamps': True,
+    'model': 'default'
+}
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/speech-to-text',
+    headers={
+        'Authorization': 'Bearer API_KEY'
+    },
+    files=files,
+    data=data
+)
+data = response.json()
+print(f"Transcription: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="text" type="string">
+      The transcribed text
+    </ResponseField>
+    <ResponseField name="timestamps" type="array">
+      Array of word-level timestamps (only if returnTimestamps is true)
+      <Expandable title="properties">
+        <ResponseField name="word" type="string">
+          The transcribed word
+        </ResponseField>
+        <ResponseField name="start" type="number">
+          Start time in seconds
+        </ResponseField>
+        <ResponseField name="end" type="number">
+          End time in seconds
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": {
+    "text": "Hello world",
+    "timestamps": [
+      {
+        "word": "Hello",
+        "start": 0.0,
+        "end": 0.5
+      },
+      {
+        "word": "world",
+        "start": 0.6,
+        "end": 1.0
+      }
+    ]
+  }
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.02 per minute
+- 80% cheaper than Google Speech-to-Text
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Maximum audio length: 1 minute per request
+- Supported formats: WAV, MP3, OGG

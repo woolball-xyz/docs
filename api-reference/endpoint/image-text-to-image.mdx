@@ -1,0 +1,94 @@
+---
+title: 'Image-Text to Image'
+api: 'POST https://api.woolball.xyz/v1/image-text-to-image'
+description: 'Generate or modify images based on text and image input'
+---
+
+Generate or modify images using text prompts and optional reference images through our distributed browser network.
+
+## Request
+
+<ParamField body="prompt" type="string" required>
+  Text description of the desired image
+</ParamField>
+
+<ParamField body="reference_image" type="blob">
+  Optional reference image to guide the generation
+</ParamField>
+
+<ParamField body="style" type="string">
+  Style preference (e.g., 'photorealistic', 'artistic', 'cartoon'). Default is 'photorealistic'
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/image-text-to-image \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F "prompt=A beautiful sunset over mountains" \
+  -F "reference_image=@reference.jpg" \
+  -F "style=photorealistic"
+```
+
+```javascript
+const formData = new FormData();
+formData.append('prompt', 'A beautiful sunset over mountains');
+formData.append('reference_image', imageBlob);
+formData.append('style', 'photorealistic');
+
+fetch('https://api.woolball.xyz/v1/image-text-to-image', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY'
+  },
+  body: formData
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Generated Image:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+files = {
+    'reference_image': open('reference.jpg', 'rb')
+}
+data = {
+    'prompt': 'A beautiful sunset over mountains',
+    'style': 'photorealistic'
+}
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/image-text-to-image',
+    headers={
+        'Authorization': 'Bearer API_KEY'
+    },
+    files=files,
+    data=data
+)
+data = response.json()
+print(f"Generated Image: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="string">
+  Base64 encoded image data
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": "base64_encoded_image_data"
+}
+```
+</ResponseExample>

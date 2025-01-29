@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Wool Ball",
   "logo": {
-    "dark": "/logo/logo.png",
-    "light": "/logo/logo.png"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://woolball.xyz/Identity/Account/Manage/#toApp"
+    "url": "https://woolball.xyz/Identity/Account/Manage/"
   },
   "tabs": [
     {
@@ -33,19 +33,19 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://woolball.mintlify.app/api-reference/introduction"
-    },
-    {
       "name": "Community",
       "icon": "discord",
-      "url": "https://discord.gg/hykrTD7ACs"
+      "url": "https://discord.gg/xbSmMfmwWW"
+    },
+    {
+      "name": "Be paid",
+      "icon": "network-wired",
+      "url": "https://woolball.xyz/Early"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://woolball.xyz/Blog"
+      "url": "https://woolball.xyz/#card-container"
     }
   ],
   "navigation": [
@@ -54,18 +54,7 @@
       "pages": [
         "introduction",
         "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "Browser"
       ]
     },
     {
@@ -75,15 +64,33 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Text Services",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/text-generation",
+        "api-reference/endpoint/translation",
+        "api-reference/endpoint/zero-shot-classification",
+        "api-reference/endpoint/summarization"
+      ]
+    },
+    {
+      "group": "Audio Services",
+      "pages": [
+        "api-reference/endpoint/text-to-speech",
+        "api-reference/endpoint/speech-to-text"
+      ]
+    },
+    {
+      "group": "Image Services",
+      "pages": [
+        "api-reference/endpoint/image-text-to-image",
+        "api-reference/endpoint/facial-emotion",
+        "api-reference/endpoint/image-classification",
+        "api-reference/endpoint/zero-shot-image-classification",
+        "api-reference/endpoint/character-to-image"
       ]
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/mintlify"
+    "github": "https://github.com/woolball-xyz"
   }
 }

@@ -1,0 +1,103 @@
+---
+title: 'Translation'
+api: 'POST https://api.woolball.xyz/v1/translation'
+description: 'Translate text between languages'
+---
+
+Translate text between languages using our distributed browser network.
+
+## Request
+
+<ParamField body="text" type="string" required>
+  The text to translate
+</ParamField>
+
+<ParamField body="source_language" type="string">
+  Source language code (e.g., "pt", "en", "es"). Default is auto-detect.
+</ParamField>
+
+<ParamField body="target_language" type="string" required>
+  Target language code (e.g., "pt", "en", "es")
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/translation \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Hello World",
+    "source_language": "en",
+    "target_language": "pt"
+  }'
+```
+
+```javascript
+fetch('https://api.woolball.xyz/v1/translation', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    text: 'Hello World',
+    source_language: 'en',
+    target_language: 'pt'
+  })
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Translated Text:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/translation',
+    headers={
+        'Authorization': 'Bearer API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'text': 'Hello World',
+        'source_language': 'en',
+        'target_language': 'pt'
+    }
+)
+data = response.json()
+print(f"Translated Text: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="string">
+  The translated text
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": "Olá Mundo"
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.0018 per 4 million characters
+- 90% cheaper than DeepL
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Maximum text length: 1000 characters per request
+- Supported languages: Check our [language codes](https://github.com/facebookresearch/flores/blob/main/flores200/README.md)

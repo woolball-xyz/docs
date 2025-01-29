@@ -1,0 +1,107 @@
+---
+title: 'Character to Image'
+api: 'POST https://api.woolball.xyz/v1/character-to-image'
+description: 'Generate images from characters or emojis'
+---
+
+Generate images from characters or emojis using our distributed browser network.
+
+## Request
+
+<ParamField body="character" type="string" required>
+  The character or emoji to convert to an image
+</ParamField>
+
+<ParamField body="style" type="string">
+  Style of the generated image (e.g., 'cartoon', 'realistic', 'artistic'). Default is 'cartoon'
+</ParamField>
+
+<ParamField body="size" type="string">
+  Size of the output image ('small', 'medium', 'large'). Default is 'medium'
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/character-to-image \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "character": "🐶",
+    "style": "cartoon",
+    "size": "medium"
+  }'
+```
+
+```javascript
+fetch('https://api.woolball.xyz/v1/character-to-image', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    character: '🐶',
+    style: 'cartoon',
+    size: 'medium'
+  })
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Generated Image:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/character-to-image',
+    headers={
+        'Authorization': 'Bearer API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'character': '🐶',
+        'style': 'cartoon',
+        'size': 'medium'
+    }
+)
+data = response.json()
+print(f"Generated Image: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="string">
+  Base64 encoded image data
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": "base64_encoded_image_data"
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.02 per image
+- 90% cheaper than similar services
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Supported characters: Unicode characters and emojis
+- Output formats: PNG
+- Size options:
+  - small: 256x256
+  - medium: 512x512
+  - large: 1024x1024

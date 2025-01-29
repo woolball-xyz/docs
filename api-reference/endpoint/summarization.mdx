@@ -1,0 +1,96 @@
+---
+title: 'Text Summarization'
+api: 'POST https://api.woolball.xyz/v1/summarization'
+description: 'Generate concise summaries of text content'
+---
+
+Generate concise summaries of text content using our distributed browser network.
+
+## Request
+
+<ParamField body="text" type="string" required>
+  The text to summarize
+</ParamField>
+
+<ParamField body="max_length" type="integer">
+  Maximum length of the summary in characters. Default is 150
+</ParamField>
+
+<RequestExample>
+```bash
+curl -X POST https://api.woolball.xyz/v1/summarization \
+  -H "Authorization: Bearer API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Long text content to summarize...",
+    "max_length": 150
+  }'
+```
+
+```javascript
+fetch('https://api.woolball.xyz/v1/summarization', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    text: 'Long text content to summarize...',
+    max_length: 150
+  })
+})
+.then(res => res.json())
+.then(data => {
+  console.log('Summary:', data.data);
+})
+.catch(console.error);
+```
+
+```python
+import requests
+
+response = requests.post(
+    'https://api.woolball.xyz/v1/summarization',
+    headers={
+        'Authorization': 'Bearer API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json={
+        'text': 'Long text content to summarize...',
+        'max_length': 150
+    }
+)
+data = response.json()
+print(f"Summary: {data['data']}")
+```
+</RequestExample>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="string">
+  The summarized text
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "success": true,
+  "data": "Concise summary of the input text..."
+}
+```
+</ResponseExample>
+
+## Pricing
+
+- $0.0018 per 4 million characters
+- 90% cheaper than comparable services
+
+## Limits
+
+- Free tier: 100 requests per hour
+- Maximum text length: 10000 characters per request
+- Maximum summary length: 1000 characters
