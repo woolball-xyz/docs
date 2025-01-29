@@ -3,17 +3,6 @@ title: 'Welcome to Wool Ball'
 description: 'Learn about Wool Ball - the client-as-server network for AI processing'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
-
 ## What is Wool Ball?
 
 <Note>
@@ -55,19 +44,23 @@ Wool Ball is an innovative client-as-server network that enables browsers to pro
   </Card>
 </CardGroup>
 
-## How It's Different
+## Make Your First API Call
 
-<AccordionGroup>
-  <Accordion icon="link" title="vs. Blockchain">
-    While similar in using a distributed network, Wool Ball focuses on executing AI models and data processing rather than immutable data recording or consensus mechanisms. This makes it more efficient for computational tasks.
-  </Accordion>
-  <Accordion icon="cloud" title="vs. Serverless Computing">
-    Unlike traditional serverless solutions that rely on cloud providers, Wool Ball uses browsers as infrastructure, making it more accessible and cost-effective for AI processing tasks.
-  </Accordion>
-  <Accordion icon="share-nodes" title="vs. Collaborative Economy">
-    Similar to platforms like Uber and Airbnb, Wool Ball utilizes idle resources. However, instead of physical assets, it leverages browser computational power for processing tasks.
-  </Accordion>
-</AccordionGroup>
+Get started with Wool Ball by making your first API call. Here's a simple example using our text generation endpoint:
+
+```bash
+curl -X GET "https://api.woolball.xyz/v1/completions?Text=Tell%20me%20a%20joke&Model=HuggingFaceTB/SmolLM2-135M-Instruct" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+This will return a response like:
+
+```json
+{
+  "success": true,
+  "data": "Why did the scarecrow win an award? Because he was outstanding in his field!"
+}
+```
 
 ## Available AI Services
 
@@ -76,44 +69,22 @@ Wool Ball is an innovative client-as-server network that enables browsers to pro
     title="Text Services"
     icon="text-size"
   >
-    - Text-to-Speech: Generate voices from text
-    - Speech-to-Text: Convert audio to text
-    - Text Generation: Create AI-generated text
-    - Translation: AI-powered text translation
-    - Zero-Shot Classification: Flexible text classification
-    - Text Summarization: Create concise summaries
+   
+  </Card>
+  <Card
+    title="Audio Services"
+    icon="audio"
+  >
+  
   </Card>
   <Card
     title="Image Services"
     icon="image"
   >
-    - Facial Emotion Analysis: Detect emotions in facial images
-    - Image Processing: Various image-related AI tasks
+  
   </Card>
 </CardGroup>
 
-## Beyond AI
-
-<CardGroup cols={3}>
-  <Card
-    title="Video Operations"
-    icon="video"
-  >
-    Perform FFmpeg-like operations directly in the browser
-  </Card>
-  <Card
-    title="Private Networks"
-    icon="lock"
-  >
-    Create closed processing networks for enterprise use
-  </Card>
-  <Card
-    title="Custom Solutions"
-    icon="gear"
-  >
-    Build specialized processing networks for specific needs
-  </Card>
-</CardGroup>
 
 ## Get Started
 
