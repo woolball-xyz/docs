@@ -19,198 +19,24 @@ https://api.woolball.xyz/v1
 
 <CodeGroup>
 ```bash
-curl -X POST https://api.woolball.xyz/v1/text-to-speech \
+curl -X POST https://api.woolball.xyz/v1/text-to-speech/pt \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"text": "Hello World"}'
 ```
-
-```javascript
-fetch('https://api.woolball.xyz/v1/text-to-speech', {
-  method: 'POST',
-  headers: {
-    'Authorization': 'Bearer YOUR_API_KEY',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    text: 'Hello World'
-  })
-})
-```
-
-```python
-import requests
-
-response = requests.post(
-    'https://api.woolball.xyz/v1/text-to-speech',
-    headers={
-        'Authorization': 'Bearer YOUR_API_KEY',
-        'Content-Type': 'application/json',
-    },
-    json={
-        'text': 'Hello World'
-    }
-)
-```
 </CodeGroup>
 
-## Pricing
 
-<CardGroup cols={3}>
-  <Card
-    title="Text-to-Speech"
-    icon="microphone"
-  >
-    $0.0018 per 4 million characters
-    90% cheaper than Azure Speech Services
-  </Card>
-  <Card
-    title="Speech-to-Text"
-    icon="waveform"
-  >
-    $0.02 per minute
-    80% cheaper than Google Speech-to-Text
-  </Card>
-  <Card
-    title="Text Generation"
-    icon="text"
-  >
-    $0.0018 per 4 million characters
-    90% cheaper than OpenAI GPT-3
-  </Card>
-  <Card
-    title="Translation"
-    icon="language"
-  >
-    $0.0018 per 4 million characters
-    90% cheaper than DeepL
-  </Card>
-  <Card
-    title="Zero-Shot Classification"
-    icon="tag"
-  >
-    $0.0018 per 4 million characters
-    90% cheaper than Jina.ai
-  </Card>
-  <Card
-    title="Facial Emotion"
-    icon="face-smile"
-  >
-    $0.02 per million characters
-    99% cheaper than Azure Face API
-  </Card>
-</CardGroup>
-
-## Rate Limits
-
-<Accordion title="Free Tier Limits">
-- 100 requests per hour
-- Maximum text length: 1000 characters per request
-- Maximum audio length: 1 minute per request
-- Maximum image size: 5MB per request
-</Accordion>
-
-<Accordion title="Paid Tier Limits">
-- Based on your subscription level
-- Custom limits available for enterprise plans
-- Network contributors receive additional quota
-</Accordion>
-
-## Available Endpoints
-
-### Text Processing
-- `/text-generation`: Generate AI-powered text content
-- `/translation`: Translate text between languages
-- `/zero-shot-classification`: Classify text without predefined categories
-- `/summarization`: Create concise text summaries
-
-### Audio Processing
-- `/text-to-speech`: Generate natural speech from text
-- `/speech-to-text`: Convert audio to text
-
-### Image Processing
-- `/facial-emotion`: Analyze emotions in facial images
-- `/image-text-to-image`: Generate images from text and image input
-- `/image-classification`: Classify image content
-- `/zero-shot-image-classification`: Flexible image classification
-- `/character-to-image`: Generate images from characters/emojis
-
-## Response Format
-
-<CodeGroup>
-```json Success Response
-{
-  "success": true,
-  "data": {
-    // Response data specific to the endpoint
-  },
-  "error": null
-}
-```
-
-```json Error Response
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable error message"
-  }
-}
-```
-</CodeGroup>
-
-## Common Error Codes
-
-<ResponseField name="AUTH_ERROR" type="string">
-  Authentication failed. Check your API key.
-</ResponseField>
-
-<ResponseField name="RATE_LIMIT" type="string">
-  Rate limit exceeded. Wait before making more requests.
-</ResponseField>
-
-<ResponseField name="INVALID_INPUT" type="string">
-  Invalid request parameters. Check the request body.
-</ResponseField>
-
-<ResponseField name="PROCESSING_ERROR" type="string">
-  Error during processing. Try again or contact support.
-</ResponseField>
-
-<ResponseField name="NETWORK_ERROR" type="string">
-  Network-related issues. Check your connection.
-</ResponseField>
 
 ## SDKs & Libraries
 
 <CardGroup cols={2}>
   <Card
-    title="JavaScript/TypeScript"
-    icon="js"
-    href="https://github.com/woolball-xyz/js-sdk"
+    title="PHP"
+    icon="php"
+    href="https://github.com/bugadoz/woolball-library"
   >
-    Official JavaScript/TypeScript SDK
+    PHP SDK by Bugadoz
   </Card>
-  <Card
-    title="Python"
-    icon="python"
-    href="https://github.com/woolball-xyz/python-sdk"
-  >
-    Official Python SDK
-  </Card>
-  <Card
-    title="Go"
-    icon="golang"
-    href="https://github.com/woolball-xyz/go-sdk"
-  >
-    Official Go SDK
-  </Card>
-  <Card
-    title="Ruby"
-    icon="gem"
-    href="https://github.com/woolball-xyz/ruby-sdk"
-  >
-    Official Ruby SDK
-  </Card>
+  
 </CardGroup>
