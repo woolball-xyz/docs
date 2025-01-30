@@ -1,41 +1,58 @@
 ---
 title: 'Vision'
 api: 'POST /v1/vision'
-description: 'General purpose computer vision endpoint'
+description: 'Analyze images using vision models'
 ---
 
-General purpose computer vision endpoint for analyzing images.
+Process and analyze images using computer vision models.
 
 ### Body
 
-<ParamField body="image" type="file" required>
-  Image to analyze
+<ParamField body="image" type="string" format="binary" required>
+  Image file to analyze
+</ParamField>
+
+<ParamField body="text" type="string" required>
+  Text prompt or question about the image
 </ParamField>
 
 ### Response
 
-<ResponseField name="data" type="object">
-  The vision analysis results
+<ResponseField name="data" type="string">
+  The analysis result
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
 ```bash
 curl -X POST https://api.woolball.xyz/v1/vision \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
-  -F "image=@image.jpg"
+  -F "image=@image.jpg" \
+  -F "text=What is in this image?"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
 {
-  "data": {
-    "analysis": {
-      "description": "A detailed description of the image content",
-      "tags": ["detected", "objects", "and", "concepts"],
-      "confidence": 0.95
-    }
-  }
+  "data": "The image shows a cat sleeping on a windowsill"
 }
 ```
 </ResponseExample>

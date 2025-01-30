@@ -4,7 +4,7 @@ api: 'POST /v1/translation'
 description: 'Translate text between languages'
 ---
 
-Translate text from one language to another using advanced translation models.
+Translate text from one language to another.
 
 ### Body
 
@@ -12,18 +12,36 @@ Translate text from one language to another using advanced translation models.
   Text to translate
 </ParamField>
 
-<ParamField body="srcLang" type="string" required>
-  Source language code (e.g., "en" for English)
+<ParamField body="targetLanguage" type="string" required>
+  Target language code
 </ParamField>
 
-<ParamField body="tgtLang" type="string" required>
-  Target language code (e.g., "es" for Spanish)
+<ParamField body="sourceLanguage" type="string">
+  Source language code (optional, will be auto-detected if not provided)
 </ParamField>
 
 ### Response
 
-<ResponseField name="data" type="object">
-  The translation result
+<ResponseField name="data" type="string">
+  The translated text
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -32,9 +50,9 @@ curl -X POST https://api.woolball.xyz/v1/translation \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "Hello, how are you?",
-    "srcLang": "en",
-    "tgtLang": "es"
+    "text": "Hello, world!",
+    "targetLanguage": "pt",
+    "sourceLanguage": "en"
   }'
 ```
 </RequestExample>
@@ -42,9 +60,7 @@ curl -X POST https://api.woolball.xyz/v1/translation \
 <ResponseExample>
 ```json
 {
-  "data": {
-    "translation": "¡Hola, ¿cómo estás?"
-  }
+  "data": "Olá, mundo!"
 }
 ```
 </ResponseExample>

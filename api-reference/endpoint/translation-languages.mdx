@@ -4,7 +4,7 @@ api: 'GET /v1/languages'
 description: 'Get available languages for translation'
 ---
 
-Returns a list of available languages for translation services.
+Returns a list of available languages for translation.
 
 ### Response
 
@@ -12,10 +12,10 @@ Returns a list of available languages for translation services.
   List of available languages
   <Expandable title="Language">
     <ResponseField name="code" type="string">
-      The language code (e.g., "en", "es", "pt")
+      The language code
     </ResponseField>
     <ResponseField name="name" type="string">
-      The language name (e.g., "English", "Spanish", "Portuguese")
+      The language name
     </ResponseField>
   </Expandable>
 </ResponseField>
@@ -29,21 +29,15 @@ curl -X GET https://api.woolball.xyz/v1/languages \
 
 <ResponseExample>
 ```json
-{
-  "data": [
-    {
-      "code": "en",
-      "name": "English"
-    },
-    {
-      "code": "es",
-      "name": "Spanish"
-    },
-    {
-      "code": "pt",
-      "name": "Portuguese"
-    }
-  ]
-}
+[
+  {
+    "code": "en",
+    "name": "English"
+  },
+  {
+    "code": "pt",
+    "name": "Portuguese"
+  }
+]
 ```
 </ResponseExample>

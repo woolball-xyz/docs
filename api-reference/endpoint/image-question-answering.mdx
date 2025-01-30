@@ -1,27 +1,25 @@
 ---
-title: 'Text to Speech'
-api: 'GET /v1/text-to-speech/{targetLanguage}'
-description: 'Convert text to speech in different languages'
+title: 'Image Question Answering'
+api: 'POST /v1/image-question-answering'
+description: 'Answer questions about images'
 ---
 
-Convert text to spoken audio in the specified language.
+Answer natural language questions about image content.
 
-### Path Parameters
+### Body
 
-<ParamField path="targetLanguage" type="string" required>
-  Target language for speech synthesis. Available options: "en" (English), "pt" (Portuguese), "es" (Spanish)
+<ParamField body="image" type="string" format="binary" required>
+  Image file to analyze
 </ParamField>
 
-### Query Parameters
-
-<ParamField query="text" type="string" required>
-  Text to convert to speech
+<ParamField body="text" type="string" required>
+  Question about the image
 </ParamField>
 
 ### Response
 
 <ResponseField name="data" type="string">
-  Base64 encoded audio data
+  The answer to the question about the image
 </ResponseField>
 
 ### Status Codes
@@ -44,17 +42,17 @@ Convert text to spoken audio in the specified language.
 
 <RequestExample>
 ```bash
-curl -X GET https://api.woolball.xyz/v1/text-to-speech/en \
+curl -X POST https://api.woolball.xyz/v1/image-question-answering \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
-  -G \
-  -d "text=Hello, world!"
+  -F "image=@image.jpg" \
+  -F "text=What color is the cat in the image?"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
 {
-  "data": "base64_encoded_audio_data"
+  "data": "The cat in the image is orange"
 }
 ```
 </ResponseExample>

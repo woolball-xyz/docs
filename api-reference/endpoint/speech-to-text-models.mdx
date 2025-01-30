@@ -11,14 +11,17 @@ Returns a list of available models for speech recognition.
 <ResponseField name="data" type="array">
   List of available speech recognition models
   <Expandable title="Model">
-    <ResponseField name="id" type="string">
-      The unique identifier of the model
+    <ResponseField name="outputLanguage" type="boolean">
+      Whether the model supports output language selection
     </ResponseField>
-    <ResponseField name="name" type="string">
-      The name of the model
+    <ResponseField name="returnTimestamps" type="boolean">
+      Whether the model supports timestamp generation
     </ResponseField>
-    <ResponseField name="description" type="string">
-      Description of the model's capabilities
+    <ResponseField name="model" type="string">
+      The model identifier
+    </ResponseField>
+    <ResponseField name="dtype" type="string">
+      The data type configuration
     </ResponseField>
   </Expandable>
 </ResponseField>
@@ -35,9 +38,10 @@ curl -X GET https://api.woolball.xyz/v1/models/speech-to-text \
 {
   "data": [
     {
-      "id": "whisper-base",
-      "name": "Whisper Base",
-      "description": "OpenAI's Whisper base model for speech recognition"
+      "outputLanguage": true,
+      "returnTimestamps": true,
+      "model": "onnx-community/whisper-base",
+      "dtype": "float16"
     }
   ]
 }

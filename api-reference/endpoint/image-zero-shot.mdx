@@ -1,25 +1,43 @@
 ---
-title: 'Image Zero Shot Classification'
+title: 'Image Zero Shot'
 api: 'POST /v1/image-zero-shot'
-description: 'Classify images using zero-shot learning with custom labels'
+description: 'Classify images using zero-shot learning'
 ---
 
-Classify images into custom categories using zero-shot learning, allowing for flexible image classification without pre-training.
+Classify images into custom categories without prior training.
 
 ### Body
 
-<ParamField body="image" type="file" required>
-  Image to classify
+<ParamField body="image" type="string" format="binary" required>
+  Image file to classify
 </ParamField>
 
-<ParamField body="labels" type="string" required>
-  JSON array of candidate labels for classification. Example: ["dog", "cat", "bird", "fish"]
+<ParamField body="labels" type="array" required>
+  List of possible labels for classification
 </ParamField>
 
 ### Response
 
-<ResponseField name="data" type="object">
-  The classification results with confidence scores for each label
+<ResponseField name="data" type="string">
+  The classification result
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -27,33 +45,15 @@ Classify images into custom categories using zero-shot learning, allowing for fl
 curl -X POST https://api.woolball.xyz/v1/image-zero-shot \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -F "image=@image.jpg" \
-  -F 'labels=["dog", "cat", "bird", "fish"]'
+  -F "labels=day" \
+  -F "labels=night"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
 {
-  "data": {
-    "classifications": [
-      {
-        "label": "dog",
-        "confidence": 0.95
-      },
-      {
-        "label": "cat",
-        "confidence": 0.03
-      },
-      {
-        "label": "bird",
-        "confidence": 0.01
-      },
-      {
-        "label": "fish",
-        "confidence": 0.01
-      }
-    ]
-  }
+  "data": "day"
 }
 ```
 </ResponseExample>

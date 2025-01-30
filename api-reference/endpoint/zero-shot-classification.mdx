@@ -4,7 +4,7 @@ api: 'POST /v1/zero-shot-classification'
 description: 'Classify text without training using zero-shot learning'
 ---
 
-Classify text into categories without pre-training using zero-shot learning models.
+Classify text into given categories without prior training.
 
 ### Body
 
@@ -13,13 +13,39 @@ Classify text into categories without pre-training using zero-shot learning mode
 </ParamField>
 
 <ParamField body="labels" type="array" required>
-  Array of possible classification labels
+  List of possible labels for classification
 </ParamField>
 
 ### Response
 
 <ResponseField name="data" type="object">
-  The classification results
+  Classification results
+  <Expandable title="Properties">
+    <ResponseField name="labels" type="array">
+      List of provided labels
+    </ResponseField>
+    <ResponseField name="scores" type="array">
+      Corresponding confidence scores for each label
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -28,7 +54,7 @@ curl -X POST https://api.woolball.xyz/v1/zero-shot-classification \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "I love this product!",
+    "text": "The movie was great, I really enjoyed it!",
     "labels": ["positive", "negative", "neutral"]
   }'
 ```
@@ -38,20 +64,8 @@ curl -X POST https://api.woolball.xyz/v1/zero-shot-classification \
 ```json
 {
   "data": {
-    "labels": [
-      {
-        "label": "positive",
-        "score": 0.95
-      },
-      {
-        "label": "neutral",
-        "score": 0.03
-      },
-      {
-        "label": "negative",
-        "score": 0.02
-      }
-    ]
+    "labels": ["positive", "negative", "neutral"],
+    "scores": [0.92, 0.05, 0.03]
   }
 }
 ```

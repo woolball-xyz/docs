@@ -1,7 +1,7 @@
 ---
 title: 'Summarization'
 api: 'POST /v1/summarization'
-description: 'Generate summaries of text content'
+description: 'Generate text summaries'
 ---
 
 Generate concise summaries of longer text content.
@@ -12,14 +12,28 @@ Generate concise summaries of longer text content.
   Text content to summarize
 </ParamField>
 
-<ParamField body="maxLength" type="integer">
-  Maximum length of the generated summary
-</ParamField>
-
 ### Response
 
-<ResponseField name="data" type="object">
+<ResponseField name="data" type="string">
   The generated summary
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -28,8 +42,7 @@ curl -X POST https://api.woolball.xyz/v1/summarization \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "Long text content to summarize...",
-    "maxLength": 100
+    "text": "Long text content to summarize..."
   }'
 ```
 </RequestExample>
@@ -37,9 +50,7 @@ curl -X POST https://api.woolball.xyz/v1/summarization \
 <ResponseExample>
 ```json
 {
-  "data": {
-    "summary": "Concise summary of the input text"
-  }
+  "data": "Concise summary of the input text"
 }
 ```
 </ResponseExample>

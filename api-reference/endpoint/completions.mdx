@@ -4,22 +4,40 @@ api: 'GET /v1/completions'
 description: 'Generate text completions'
 ---
 
-Generate text completions using language models.
+Generate text completions based on input text.
 
 ### Query Parameters
 
-<ParamField query="prompt" type="string" required>
-  The text prompt to generate completions for
+<ParamField query="text" type="string" required>
+  Input text for completion
 </ParamField>
 
 <ParamField query="model" type="string">
-  The language model to use for generating completions
+  Model to use for completion
 </ParamField>
 
 ### Response
 
-<ResponseField name="data" type="object">
-  The generated completion result
+<ResponseField name="data" type="string">
+  The generated completion text
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -27,7 +45,7 @@ Generate text completions using language models.
 curl -X GET https://api.woolball.xyz/v1/completions \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -G \
-  -d "prompt=Once upon a time" \
+  -d "text=Once upon a time" \
   -d "model=gpt2"
 ```
 </RequestExample>
@@ -35,9 +53,7 @@ curl -X GET https://api.woolball.xyz/v1/completions \
 <ResponseExample>
 ```json
 {
-  "data": {
-    "text": "Generated completion text"
-  }
+  "data": "Once upon a time in a distant kingdom..."
 }
 ```
 </ResponseExample>

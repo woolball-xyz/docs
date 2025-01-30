@@ -4,32 +4,53 @@ api: 'POST /v1/speech-to-text'
 description: 'Convert audio to text using speech recognition'
 ---
 
-Convert audio files to text using advanced speech recognition models.
+Convert audio files to text using speech recognition.
 
 ### Body
 
-<ParamField body="audio" type="file" required>
+<ParamField body="audio" type="string" format="binary" required>
   Audio file to transcribe
 </ParamField>
 
 ### Query Parameters
 
 <ParamField query="model" type="string">
-  Speech recognition model to use. Default: "onnx-community/whisper-base"
+  Speech recognition model to use
+  Example: "onnx-community/whisper-base"
 </ParamField>
 
 <ParamField query="outputLanguage" type="string">
-  Target language for the transcription output. Example: "pt"
+  Target language for the transcription output
+  Example: "pt"
 </ParamField>
 
 <ParamField query="returnTimestamps" type="boolean">
   Whether to return timestamps for each transcribed segment
+  Example: true
 </ParamField>
 
 ### Response
 
-<ResponseField name="data" type="object">
+<ResponseField name="data" type="string">
   The transcription result
+</ResponseField>
+
+### Status Codes
+
+<ResponseField name="200" type="object">
+  OK - Successful request
+</ResponseField>
+
+<ResponseField name="400" type="object">
+  Bad Request - Validation error occurred
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication failed
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required
 </ResponseField>
 
 <RequestExample>
@@ -37,7 +58,6 @@ Convert audio files to text using advanced speech recognition models.
 curl -X POST https://api.woolball.xyz/v1/speech-to-text \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -F "audio=@audio.mp3" \
-  -G \
   -d "model=onnx-community/whisper-base" \
   -d "outputLanguage=pt" \
   -d "returnTimestamps=true"
@@ -47,16 +67,7 @@ curl -X POST https://api.woolball.xyz/v1/speech-to-text \
 <ResponseExample>
 ```json
 {
-  "data": {
-    "text": "Transcribed text content",
-    "segments": [
-      {
-        "text": "Segment text",
-        "start": 0.0,
-        "end": 2.5
-      }
-    ]
-  }
+  "data": "Transcribed text content"
 }
 ```
 </ResponseExample>
