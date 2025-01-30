@@ -16,6 +16,9 @@
     }
   },
   "openapi": "https://api.woolball.xyz/openapi/v1.json",
+  "api":{
+    "baseUrl": "https://api.woolball.xyz"
+  },
   "topbarLinks": [
     {
       "name": "Support",
