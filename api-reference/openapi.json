@@ -15,6 +15,56 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "audio": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Audio file to transcribe"
+                  }
+                },
+                "required": ["audio"]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Speech recognition model to use",
+            "example": "onnx-community/whisper-base"
+          },
+          {
+            "name": "outputLanguage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Target language for the transcription output",
+            "example": "pt"
+          },
+          {
+            "name": "returnTimestamps",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to return timestamps for each transcribed segment",
+            "example": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -62,17 +112,24 @@
     "/v1/models/speech-to-text": {
       "get": {
         "tags": [
-          "api"
+          "Models"
         ],
+        "summary": "Get available speech-to-text models",
+        "description": "Returns a list of available models for speech recognition",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SpeechRecognitionModel"
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SpeechRecognitionModel"
+                      }
+                    }
                   }
                 }
               }
@@ -85,6 +142,26 @@
       "get": {
         "tags": [
           "EndPoints"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The prompt text for completion"
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The model to use for text generation"
+          }
         ],
         "responses": {
           "200": {
@@ -130,28 +207,6 @@
         }
       }
     },
-    "/v1/models/completions": {
-      "get": {
-        "tags": [
-          "api"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompletionModel"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/text-to-speech/{targetLanguage}": {
       "get": {
         "tags": [
@@ -163,8 +218,19 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
+              "enum": ["en", "pt", "es"]
+            },
+            "description": "Target language for speech (en, pt, es)"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
               "type": "string"
-            }
+            },
+            "description": "The text to convert to speech"
           }
         ],
         "responses": {
@@ -216,6 +282,24 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file containing faces to analyze"
+                  }
+                },
+                "required": ["image"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -265,6 +349,31 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to translate"
+                  },
+                  "srcLang": {
+                    "type": "string",
+                    "description": "Source language code"
+                  },
+                  "tgtLang": {
+                    "type": "string",
+                    "description": "Target language code"
+                  }
+                },
+                "required": ["text", "srcLang", "tgtLang"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -314,6 +423,34 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to classify"
+                  },
+                  "candidateLabels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of possible labels for classification"
+                  }
+                },
+                "required": ["text", "candidateLabels"],
+                "example": {
+                  "text": "The movie was fantastic, with great acting and an engaging plot.",
+                  "candidateLabels": ["positive", "negative", "neutral"]
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -373,6 +510,35 @@
         "tags": [
           "EndPoints"
         ],
+        "parameters": [
+          {
+            "name": "question",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Question to ask about the image"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image to analyze"
+                  }
+                },
+                "required": ["image"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -422,6 +588,27 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "One or more images to classify"
+                  }
+                },
+                "required": ["images"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -471,6 +658,29 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image to classify"
+                  },
+                  "labels": {
+                    "type": "string",
+                    "description": "JSON array of candidate labels for classification",
+                    "example": "[\"dog\", \"cat\", \"bird\", \"fish\"]"
+                  }
+                },
+                "required": ["image", "labels"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -520,6 +730,26 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text content to summarize"
+                  }
+                },
+                "required": ["text"],
+                "example": {
+                  "text": "This is a long text that needs to be summarized. It contains multiple sentences and important information that should be condensed into a shorter version while maintaining the key points."
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -569,6 +799,29 @@
         "tags": [
           "EndPoints"
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image to analyze"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "Custom prompt or instruction for image analysis",
+                    "example": "Describe the main objects and their relationships in this image"
+                  }
+                },
+                "required": ["image", "prompt"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -617,6 +870,18 @@
       "get": {
         "tags": [
           "EndPoints"
+        ],
+        "parameters": [
+          {
+            "name": "character",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 1
+            },
+            "description": "The single character to convert to an image"
+          }
         ],
         "responses": {
           "200": {
@@ -944,6 +1209,9 @@
   "tags": [
     {
       "name": "EndPoints"
+    },
+    {
+      "name": "Models"
     },
     {
       "name": "api"
