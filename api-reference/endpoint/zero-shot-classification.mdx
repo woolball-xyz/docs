@@ -1,4 +1,44 @@
 ---
 title: 'Zero Shot Classification'
-openapi: 'POST /v1/zero-shot-classification'
+api: 'POST /v1/zero-shot-classification'
+description: 'Perform zero-shot classification on text'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/zero-shot-classification \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Classification results
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The classification results
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

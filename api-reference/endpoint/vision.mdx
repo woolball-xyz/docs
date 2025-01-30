@@ -1,4 +1,44 @@
 ---
 title: 'Vision'
-openapi: 'POST /v1/vision'
+api: 'POST /v1/vision'
+description: 'Process and analyze images'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/vision \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Vision analysis results
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The vision analysis results
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

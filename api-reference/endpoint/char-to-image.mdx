@@ -1,4 +1,43 @@
 ---
 title: 'Character to Image'
-openapi: 'POST https://api.woolball.xyz/v1/char-to-image'
+api: 'GET /v1/char-to-image'
+description: 'Convert characters to images'
 ---
+
+<RequestExample>
+```bash
+curl --request GET \
+  --url https://api.woolball.xyz/v1/char-to-image \
+  --header 'Authorization: Bearer <token>'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Image data
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="CharToImageResponse" type="object">
+  The generated image data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

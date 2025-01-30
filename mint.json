@@ -15,8 +15,8 @@
       "to": "#07C983"
     }
   },
-  "openapi": "https://api.woolball.xyz/openapi/v1.json",
-  "api":{
+  "openapi": "/api-reference/openapi.json",
+  "api": {
     "baseUrl": "https://api.woolball.xyz",
     "auth": {
       "method": "bearer"
@@ -72,10 +72,20 @@
     {
       "group": "Text Services",
       "pages": [
-        "api-reference/endpoint/completions",
-        "api-reference/endpoint/completions-models",
-        "api-reference/endpoint/translation",
-        "api-reference/endpoint/translation-languages",
+        {
+          "group": "Completions",
+          "pages": [
+            "api-reference/endpoint/completions",
+            "api-reference/endpoint/completions-models"
+          ]
+        },
+        {
+          "group": "Translation",
+          "pages": [
+            "api-reference/endpoint/translation",
+            "api-reference/endpoint/translation-languages"
+          ]
+        },
         "api-reference/endpoint/zero-shot-classification",
         "api-reference/endpoint/summarization"
       ]
@@ -83,24 +93,49 @@
     {
       "group": "Audio Services",
       "pages": [
-        "api-reference/endpoint/text-to-speech",
-        "api-reference/endpoint/speech-to-text",
-        "api-reference/endpoint/speech-to-text-models"
+        {
+          "group": "Speech Services",
+          "pages": [
+            "api-reference/endpoint/text-to-speech",
+            "api-reference/endpoint/speech-to-text",
+            "api-reference/endpoint/speech-to-text-models"
+          ]
+        }
       ]
     },
     {
       "group": "Image Services",
       "pages": [
-        "api-reference/endpoint/vision",
-        "api-reference/endpoint/image-classification",
-        "api-reference/endpoint/image-facial-emotions",
-        "api-reference/endpoint/image-text-to-image",
-        "api-reference/endpoint/image-zero-shot",
-        "api-reference/endpoint/char-to-image"
+        {
+          "group": "Vision & Analysis",
+          "pages": [
+            "api-reference/endpoint/vision",
+            "api-reference/endpoint/image-classification",
+            "api-reference/endpoint/image-facial-emotions"
+          ]
+        },
+        {
+          "group": "Image Generation",
+          "pages": [
+            "api-reference/endpoint/image-text-to-image",
+            "api-reference/endpoint/image-zero-shot",
+            "api-reference/endpoint/char-to-image"
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
     "github": "https://github.com/woolball-xyz"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "search": {
+    "prompt": "Search Wool Ball API docs..."
+  },
+  "modeToggle": {
+    "default": "dark"
   }
 }

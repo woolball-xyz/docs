@@ -1,4 +1,44 @@
 ---
 title: 'Speech to Text'
-openapi: 'POST https://api.woolball.xyz/v1/speech-to-text'
+api: 'POST /v1/speech-to-text'
+description: 'Convert speech audio to text'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/speech-to-text \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Transcription data
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="SpeechToTextResponse" type="object">
+  The transcription response data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

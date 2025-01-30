@@ -1,4 +1,44 @@
 ---
 title: 'Translation'
-openapi: 'POST https://api.woolball.xyz/v1/translation'
+api: 'POST /v1/translation'
+description: 'Translate text between languages'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/translation \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Translation result
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The translation response data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

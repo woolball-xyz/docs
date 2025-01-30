@@ -1,4 +1,44 @@
 ---
-title: 'Text Summarization'
-openapi: 'POST https://api.woolball.xyz/v1/summarization'
+title: 'Summarization'
+api: 'POST /v1/summarization'
+description: 'Generate text summaries'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/summarization \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Summary result
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The summarization response data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

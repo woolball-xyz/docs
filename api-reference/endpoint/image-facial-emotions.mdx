@@ -1,4 +1,44 @@
 ---
 title: 'Image Facial Emotions'
-openapi: 'POST https://api.woolball.xyz/v1/image-facial-emotions'
+api: 'POST /v1/image-facial-emotions'
+description: 'Detect and analyze facial emotions in images'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/image-facial-emotions \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: multipart/form-data'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Facial emotion analysis results
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The facial emotion analysis results
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

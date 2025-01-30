@@ -1,4 +1,45 @@
 ---
 title: 'Text to Speech'
-openapi: 'POST https://api.woolball.xyz/v1/text-to-speech'
+api: 'GET /v1/text-to-speech/{targetLanguage}'
+description: 'Convert text to speech audio'
 ---
+
+<ParamField path="targetLanguage" type="string" required>
+  The target language for speech synthesis
+</ParamField>
+
+<RequestExample>
+```bash
+curl --request GET \
+  --url https://api.woolball.xyz/v1/text-to-speech/{targetLanguage} \
+  --header 'Authorization: Bearer <token>'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": "base64-encoded-audio-data"
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="string">
+  Base64 encoded audio data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

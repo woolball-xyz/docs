@@ -1,4 +1,44 @@
 ---
 title: 'Text to Image'
-openapi: 'POST https://api.woolball.xyz/v1/text-to-image'
+api: 'POST /v1/image-text-to-image'
+description: 'Generate images from text descriptions'
 ---
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.woolball.xyz/v1/image-text-to-image \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    // Generated image data
+  }
+}
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="data" type="object">
+  The generated image data
+</ResponseField>
+
+## Error Codes
+
+<ResponseField name="400" type="object">
+  Bad Request - Check your request parameters
+</ResponseField>
+
+<ResponseField name="401" type="object">
+  Unauthorized - Authentication required
+</ResponseField>
+
+<ResponseField name="402" type="object">
+  Payment Required - Check your subscription status
+</ResponseField>

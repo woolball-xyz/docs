@@ -1,5 +1,33 @@
 ---
-title: 'Text Generation Models'
-openapi: 'GET /v1/models/completions'
-authMethod: "none"
+title: 'Completion Models'
+api: 'GET /v1/models/completions'
+description: 'Get available completion models'
 ---
+
+<RequestExample>
+```bash
+curl --request GET \
+  --url https://api.woolball.xyz/v1/models/completions \
+  --header 'Authorization: Bearer <token>'
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+[
+  {
+    // Model details
+  }
+]
+```
+</ResponseExample>
+
+## Response
+
+<ResponseField name="array" type="array">
+  Array of available completion models
+</ResponseField>
+
+<ResponseField name="CompletionModel" type="object">
+  Details of each completion model
+</ResponseField>
