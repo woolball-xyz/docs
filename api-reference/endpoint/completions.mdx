@@ -1,5 +1,43 @@
 ---
 title: 'Completions'
 api: 'GET /v1/completions'
-description: 'Get text completions based on input'
+description: 'Generate text completions'
 ---
+
+Generate text completions using language models.
+
+### Query Parameters
+
+<ParamField query="prompt" type="string" required>
+  The text prompt to generate completions for
+</ParamField>
+
+<ParamField query="model" type="string">
+  The language model to use for generating completions
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The generated completion result
+</ResponseField>
+
+<RequestExample>
+```bash
+curl -X GET https://api.woolball.xyz/v1/completions \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -G \
+  -d "prompt=Once upon a time" \
+  -d "model=gpt2"
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+  "data": {
+    "text": "Generated completion text"
+  }
+}
+```
+</ResponseExample>

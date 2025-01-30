@@ -4,12 +4,38 @@ api: 'POST /v1/translation'
 description: 'Translate text between languages'
 ---
 
+Translate text from one language to another using advanced translation models.
+
+### Body
+
+<ParamField body="text" type="string" required>
+  Text to translate
+</ParamField>
+
+<ParamField body="srcLang" type="string" required>
+  Source language code (e.g., "en" for English)
+</ParamField>
+
+<ParamField body="tgtLang" type="string" required>
+  Target language code (e.g., "es" for Spanish)
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The translation result
+</ResponseField>
+
 <RequestExample>
 ```bash
-curl --request POST \
-  --url https://api.woolball.xyz/v1/translation \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json'
+curl -X POST https://api.woolball.xyz/v1/translation \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Hello, how are you?",
+    "srcLang": "en",
+    "tgtLang": "es"
+  }'
 ```
 </RequestExample>
 
@@ -17,28 +43,8 @@ curl --request POST \
 ```json
 {
   "data": {
-    // Translation result
+    "translation": "¡Hola, ¿cómo estás?"
   }
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="data" type="object">
-  The translation response data
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

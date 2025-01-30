@@ -1,15 +1,46 @@
 ---
 title: 'Speech to Text'
 api: 'POST /v1/speech-to-text'
-description: 'Convert speech audio to text'
+description: 'Convert audio to text using speech recognition'
 ---
+
+Convert audio files to text using advanced speech recognition models.
+
+### Body
+
+<ParamField body="audio" type="file" required>
+  Audio file to transcribe
+</ParamField>
+
+### Query Parameters
+
+<ParamField query="model" type="string">
+  Speech recognition model to use. Default: "onnx-community/whisper-base"
+</ParamField>
+
+<ParamField query="outputLanguage" type="string">
+  Target language for the transcription output. Example: "pt"
+</ParamField>
+
+<ParamField query="returnTimestamps" type="boolean">
+  Whether to return timestamps for each transcribed segment
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The transcription result
+</ResponseField>
 
 <RequestExample>
 ```bash
-curl --request POST \
-  --url https://api.woolball.xyz/v1/speech-to-text \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: multipart/form-data'
+curl -X POST https://api.woolball.xyz/v1/speech-to-text \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "audio=@audio.mp3" \
+  -G \
+  -d "model=onnx-community/whisper-base" \
+  -d "outputLanguage=pt" \
+  -d "returnTimestamps=true"
 ```
 </RequestExample>
 
@@ -17,28 +48,15 @@ curl --request POST \
 ```json
 {
   "data": {
-    // Transcription data
+    "text": "Transcribed text content",
+    "segments": [
+      {
+        "text": "Segment text",
+        "start": 0.0,
+        "end": 2.5
+      }
+    ]
   }
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="SpeechToTextResponse" type="object">
-  The transcription response data
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

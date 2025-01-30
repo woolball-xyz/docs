@@ -1,33 +1,41 @@
 ---
 title: 'Completion Models'
 api: 'GET /v1/models/completions'
-description: 'Get available completion models'
+description: 'Get available models for text completion'
 ---
+
+Returns a list of available models for text completion tasks.
+
+### Response
+
+<ResponseField name="data" type="array">
+  List of available completion models
+  <Expandable title="Model">
+    <ResponseField name="model" type="string">
+      The model identifier
+    </ResponseField>
+    <ResponseField name="dtype" type="string">
+      The data type or configuration of the model
+    </ResponseField>
+  </Expandable>
+</ResponseField>
 
 <RequestExample>
 ```bash
-curl --request GET \
-  --url https://api.woolball.xyz/v1/models/completions \
-  --header 'Authorization: Bearer <token>'
+curl -X GET https://api.woolball.xyz/v1/models/completions \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
-[
-  {
-    // Model details
-  }
-]
+{
+  "data": [
+    {
+      "model": "gpt2",
+      "dtype": "float16"
+    }
+  ]
+}
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="array" type="array">
-  Array of available completion models
-</ResponseField>
-
-<ResponseField name="CompletionModel" type="object">
-  Details of each completion model
-</ResponseField>

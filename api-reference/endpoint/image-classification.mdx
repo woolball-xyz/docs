@@ -4,12 +4,25 @@ api: 'POST /v1/image-classification'
 description: 'Classify images into predefined categories'
 ---
 
+Classify images into predefined categories using computer vision models.
+
+### Body
+
+<ParamField body="image" type="file" required>
+  Image file to classify
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The image classification results
+</ResponseField>
+
 <RequestExample>
 ```bash
-curl --request POST \
-  --url https://api.woolball.xyz/v1/image-classification \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: multipart/form-data'
+curl -X POST https://api.woolball.xyz/v1/image-classification \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "image=@image.jpg"
 ```
 </RequestExample>
 
@@ -17,28 +30,13 @@ curl --request POST \
 ```json
 {
   "data": {
-    // Classification results
+    "classifications": [
+      {
+        "label": "cat",
+        "confidence": 0.98
+      }
+    ]
   }
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="data" type="object">
-  The image classification results
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

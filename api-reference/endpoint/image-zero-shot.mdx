@@ -1,15 +1,33 @@
 ---
 title: 'Image Zero Shot Classification'
 api: 'POST /v1/image-zero-shot'
-description: 'Perform zero-shot classification on images'
+description: 'Classify images using zero-shot learning with custom labels'
 ---
+
+Classify images into custom categories using zero-shot learning, allowing for flexible image classification without pre-training.
+
+### Body
+
+<ParamField body="image" type="file" required>
+  Image to classify
+</ParamField>
+
+<ParamField body="labels" type="string" required>
+  JSON array of candidate labels for classification. Example: ["dog", "cat", "bird", "fish"]
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The classification results with confidence scores for each label
+</ResponseField>
 
 <RequestExample>
 ```bash
-curl --request POST \
-  --url https://api.woolball.xyz/v1/image-zero-shot \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: multipart/form-data'
+curl -X POST https://api.woolball.xyz/v1/image-zero-shot \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "image=@image.jpg" \
+  -F 'labels=["dog", "cat", "bird", "fish"]'
 ```
 </RequestExample>
 
@@ -17,28 +35,25 @@ curl --request POST \
 ```json
 {
   "data": {
-    // Classification results
+    "classifications": [
+      {
+        "label": "dog",
+        "confidence": 0.95
+      },
+      {
+        "label": "cat",
+        "confidence": 0.03
+      },
+      {
+        "label": "bird",
+        "confidence": 0.01
+      },
+      {
+        "label": "fish",
+        "confidence": 0.01
+      }
+    ]
   }
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="data" type="object">
-  The classification results
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

@@ -1,15 +1,36 @@
 ---
 title: 'Zero Shot Classification'
 api: 'POST /v1/zero-shot-classification'
-description: 'Perform zero-shot classification on text'
+description: 'Classify text without training using zero-shot learning'
 ---
+
+Classify text into categories without pre-training using zero-shot learning models.
+
+### Body
+
+<ParamField body="text" type="string" required>
+  Text to classify
+</ParamField>
+
+<ParamField body="labels" type="array" required>
+  Array of possible classification labels
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="object">
+  The classification results
+</ResponseField>
 
 <RequestExample>
 ```bash
-curl --request POST \
-  --url https://api.woolball.xyz/v1/zero-shot-classification \
-  --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json'
+curl -X POST https://api.woolball.xyz/v1/zero-shot-classification \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "I love this product!",
+    "labels": ["positive", "negative", "neutral"]
+  }'
 ```
 </RequestExample>
 
@@ -17,28 +38,21 @@ curl --request POST \
 ```json
 {
   "data": {
-    // Classification results
+    "labels": [
+      {
+        "label": "positive",
+        "score": 0.95
+      },
+      {
+        "label": "neutral",
+        "score": 0.03
+      },
+      {
+        "label": "negative",
+        "score": 0.02
+      }
+    ]
   }
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="data" type="object">
-  The classification results
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

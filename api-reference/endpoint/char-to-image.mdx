@@ -4,40 +4,33 @@ api: 'GET /v1/char-to-image'
 description: 'Convert characters to images'
 ---
 
+Convert text characters into corresponding images.
+
+### Query Parameters
+
+<ParamField query="char" type="string" required>
+  Character to convert to image
+</ParamField>
+
+### Response
+
+<ResponseField name="data" type="string">
+  Base64 encoded image data
+</ResponseField>
+
 <RequestExample>
 ```bash
-curl --request GET \
-  --url https://api.woolball.xyz/v1/char-to-image \
-  --header 'Authorization: Bearer <token>'
+curl -X GET https://api.woolball.xyz/v1/char-to-image \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -G \
+  -d "char=A"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
 {
-  "data": {
-    // Image data
-  }
+  "data": "base64_encoded_image_data"
 }
 ```
 </ResponseExample>
-
-## Response
-
-<ResponseField name="CharToImageResponse" type="object">
-  The generated image data
-</ResponseField>
-
-## Error Codes
-
-<ResponseField name="400" type="object">
-  Bad Request - Check your request parameters
-</ResponseField>
-
-<ResponseField name="401" type="object">
-  Unauthorized - Authentication required
-</ResponseField>
-
-<ResponseField name="402" type="object">
-  Payment Required - Check your subscription status
-</ResponseField>

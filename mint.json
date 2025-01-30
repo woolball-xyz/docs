@@ -94,7 +94,6 @@
         "api-reference/endpoint/vision",
         "api-reference/endpoint/image-classification",
         "api-reference/endpoint/image-facial-emotions",
-        "api-reference/endpoint/image-text-to-image",
         "api-reference/endpoint/image-zero-shot",
         "api-reference/endpoint/char-to-image"
       ]
