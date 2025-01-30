@@ -15,6 +15,7 @@
       "to": "#07C983"
     }
   },
+  "openapi": "https://api.woolball.xyz/openapi/v1.json",
   "topbarLinks": [
     {
       "name": "Support",
