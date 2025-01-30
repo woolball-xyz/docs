@@ -45,7 +45,7 @@
       "url": "https://discord.gg/xbSmMfmwWW"
     },
     {
-      "name": "Be paid",
+      "name": "Browser as a Server",
       "icon": "network-wired",
       "url": "https://woolball.xyz/Early"
     },
@@ -75,6 +75,7 @@
         "api-reference/endpoint/completions",
         "api-reference/endpoint/completions-models",
         "api-reference/endpoint/translation",
+        "api-reference/endpoint/translation-languages",
         "api-reference/endpoint/zero-shot-classification",
         "api-reference/endpoint/summarization"
       ]
