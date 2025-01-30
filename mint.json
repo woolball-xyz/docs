@@ -1,5 +1,5 @@
 {
-  "$schema": "https://woolball.xyz/openapi/v1.json",
+  "$schema": "https://api.woolball.xyz/openapi/v1.json",
   "name": "Wool Ball",
   "logo": {
     "light": "/logo/logo.png",
