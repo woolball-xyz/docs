@@ -4,6 +4,11 @@
     "title": "Wool Ball API | v1",
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "url": "https://api.woolball.xyz"
+    }
+  ],
   "paths": {
     "/v1/speech-to-text": {
       "post": {
@@ -942,9 +947,6 @@
     },
     {
       "name": "api"
-    },
-    {
-      "name": "WebSockets"
     }
   ]
 }
