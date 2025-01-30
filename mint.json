@@ -1,5 +1,5 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+  "$schema": "https://woolball.xyz/openapi/v1.json",
   "name": "Wool Ball",
   "logo": {
     "light": "/logo/logo.png",
