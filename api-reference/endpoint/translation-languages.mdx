@@ -1,5 +1,113 @@
 ---
 title: 'Translation Languages'
-openapi: 'POST /v1/languages'
-authMethod: "none"
+api: 'GET /v1/translation/languages'
+description: 'Get list of supported translation languages'
 ---
+
+The Translation Languages endpoint provides a list of all supported languages for translation services using Flores-200 language codes.
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of supported language objects
+</ResponseField>
+
+### Language Object
+
+<ResponseField name="code" type="string">
+  Flores-200 language code, which includes both language and script information (e.g., "eng_Latn" for English in Latin script)
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Language name in English, including script information when relevant
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "code": "eng_Latn",
+      "name": "English"
+    },
+    {
+      "code": "por_Latn",
+      "name": "Portuguese"
+    },
+    {
+      "code": "spa_Latn",
+      "name": "Spanish"
+    },
+    {
+      "code": "zho_Hans",
+      "name": "Chinese (Simplified)"
+    },
+    {
+      "code": "zho_Hant",
+      "name": "Chinese (Traditional)"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Code Examples
+
+<CodeGroup>
+```bash
+curl --request GET \
+  --url https://api.woolball.xyz/v1/translation/languages \
+  --header 'Authorization: Bearer YOUR_API_KEY'
+```
+
+```javascript
+fetch('https://api.woolball.xyz/v1/translation/languages', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY'
+  }
+})
+```
+
+```python
+import requests
+
+response = requests.get(
+    'https://api.woolball.xyz/v1/translation/languages',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'}
+)
+```
+</CodeGroup>
+
+## Understanding Language Codes
+
+The language codes follow the Flores-200 format: `[language]_[script]`
+
+Common scripts include:
+- `Latn`: Latin script
+- `Hans`: Simplified Chinese characters
+- `Hant`: Traditional Chinese characters
+- `Cyrl`: Cyrillic script
+- `Arab`: Arabic script
+- `Deva`: Devanagari script
+- `Jpan`: Japanese writing system
+- `Hang`: Korean Hangul
+- `Thai`: Thai script
+- `Hebr`: Hebrew script
+
+## Popular Languages Examples
+
+| Code | Name |
+|------|------|
+| eng_Latn | English |
+| spa_Latn | Spanish |
+| fra_Latn | French |
+| por_Latn | Portuguese |
+| deu_Latn | German |
+| rus_Cyrl | Russian |
+| jpn_Jpan | Japanese |
+| kor_Hang | Korean |
+| zho_Hans | Chinese (Simplified) |
+| zho_Hant | Chinese (Traditional) |
+| ara_Arab | Modern Standard Arabic |
+| hin_Deva | Hindi |

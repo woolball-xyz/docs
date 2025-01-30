@@ -1,5 +1,98 @@
 ---
 title: 'Speech to Text Models'
-openapi: 'GET /v1/models/speech-to-text'
-authMethod: "none"
+api: 'GET /v1/models/speech-to-text'
+description: 'Get available speech recognition models'
 ---
+
+The Speech to Text Models endpoint returns a list of available models that can be used for speech recognition.
+
+## Response
+
+<ResponseField name="data" type="array">
+  Array of available speech recognition models
+</ResponseField>
+
+### Model Object
+
+<ResponseField name="outputLanguage" type="boolean">
+  Whether the model can detect and output the language of the speech
+</ResponseField>
+
+<ResponseField name="returnTimestamps" type="boolean">
+  Whether the model can return timestamps for each transcribed segment
+</ResponseField>
+
+<ResponseField name="model" type="string">
+  The model identifier/name
+</ResponseField>
+
+<ResponseField name="dtype" type="string">
+  The data type used by the model (e.g., "q8" for 8-bit quantization)
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "outputLanguage": true,
+      "returnTimestamps": false,
+      "model": "onnx-community/whisper-base",
+      "dtype": "q8"
+    },
+    {
+      "outputLanguage": true,
+      "returnTimestamps": true,
+      "model": "onnx-community/whisper-small_timestamped",
+      "dtype": "q8"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Available Models
+
+1. **Whisper Base**
+   - Model: `onnx-community/whisper-base`
+   - Features:
+     - Language detection
+     - Basic transcription
+     - No timestamp support
+   - Optimized with 8-bit quantization
+
+2. **Whisper Small with Timestamps**
+   - Model: `onnx-community/whisper-small_timestamped`
+   - Features:
+     - Language detection
+     - Transcription with word timestamps
+     - Better accuracy than base model
+   - Optimized with 8-bit quantization
+
+## Code Examples
+
+<CodeGroup>
+```bash
+curl --request GET \
+  --url https://api.woolball.xyz/v1/models/speech-to-text \
+  --header 'Authorization: Bearer YOUR_API_KEY'
+```
+
+```javascript
+fetch('https://api.woolball.xyz/v1/models/speech-to-text', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY'
+  }
+})
+```
+
+```python
+import requests
+
+response = requests.get(
+    'https://api.woolball.xyz/v1/models/speech-to-text',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'}
+)
+```
+</CodeGroup>
