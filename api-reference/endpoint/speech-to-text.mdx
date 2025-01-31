@@ -16,7 +16,7 @@ Convert audio files to text using speech recognition.
 
 <ParamField query="model" type="string">
   Speech recognition model to use
-  Example: "onnx-community/whisper-base"
+  Example: "onnx-community/whisper-large-v3-turbo_timestamped"
 </ParamField>
 
 <ParamField query="outputLanguage" type="string">
@@ -58,7 +58,7 @@ Convert audio files to text using speech recognition.
 curl -X POST https://api.woolball.xyz/v1/speech-to-text \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -F "audio=@audio.mp3" \
-  -d "model=onnx-community/whisper-base" \
+  -d "model=onnx-community/whisper-large-v3-turbo" \
   -d "outputLanguage=pt" \
   -d "returnTimestamps=true"
 ```
