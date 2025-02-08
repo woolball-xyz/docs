@@ -4,7 +4,7 @@ api: 'POST /v1/speech-to-text'
 description: 'Convert audio to text using speech recognition'
 ---
 
-Convert audio files to text using speech recognition.
+Convert WAV audio files to text using speech recognition.
 
 ### Body
 
@@ -57,10 +57,10 @@ Convert audio files to text using speech recognition.
 ```bash
 curl -X POST https://api.woolball.xyz/v1/speech-to-text \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
-  -F "audio=@audio.mp3" \
-  -d "model=onnx-community/whisper-large-v3-turbo" \
-  -d "outputLanguage=pt" \
-  -d "returnTimestamps=true"
+  -F "audio=@input.wav;type=audio/wav" \
+  -F "model=onnx-community/whisper-large-v3-turbo" \
+  -F "outputLanguage=pt" \
+  -F "returnTimestamps=true"
 ```
 </RequestExample>
 
