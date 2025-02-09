@@ -8,16 +8,16 @@ Translate text from one language to another.
 
 ### Body
 
-<ParamField body="text" type="string" required>
+<ParamField body="Text" type="string" required>
   Text to translate
 </ParamField>
 
-<ParamField body="targetLanguage" type="string" required>
+<ParamField body="TgtLang" type="string" required>
   Target language code
 </ParamField>
 
-<ParamField body="sourceLanguage" type="string">
-  Source language code (optional, will be auto-detected if not provided)
+<ParamField body="SrcLang" type="string" required>
+  Source language code
 </ParamField>
 
 ### Response
@@ -50,9 +50,9 @@ curl -X POST https://api.woolball.xyz/v1/translation \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "Hello, world!",
-    "targetLanguage": "pt",
-    "sourceLanguage": "en"
+    "Text": "Hello, world!",
+    "SrcLang": "eng_Latn",
+    "TgtLang": "por_Latn"
   }'
 ```
 </RequestExample>
