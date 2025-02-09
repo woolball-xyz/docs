@@ -8,11 +8,11 @@ Classify text into given categories without prior training.
 
 ### Body
 
-<ParamField body="text" type="string" required>
+<ParamField body="Text" type="string" required>
   Text to classify
 </ParamField>
 
-<ParamField body="labels" type="array" required>
+<ParamField body="CandidateLabels" type="array" required>
   List of possible labels for classification
 </ParamField>
 
@@ -54,8 +54,8 @@ curl -X POST https://api.woolball.xyz/v1/zero-shot-classification \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "The movie was great, I really enjoyed it!",
-    "labels": ["positive", "negative", "neutral"]
+    "Text": "The movie was great, I really enjoyed it!",
+    "CandidateLabels": ["positive", "negative", "neutral"]
   }'
 ```
 </RequestExample>
