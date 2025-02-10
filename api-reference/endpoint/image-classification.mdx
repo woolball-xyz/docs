@@ -8,8 +8,8 @@ Classify images into predefined categories using computer vision models.
 
 ### Body
 
-<ParamField body="image" type="string" format="binary" required>
-  Image file to classify
+<ParamField body="images" type="array" items="string" format="binary" required>
+  Array of image files to classify
 </ParamField>
 
 ### Response
@@ -48,7 +48,7 @@ Classify images into predefined categories using computer vision models.
 ```bash
 curl -X POST https://api.woolball.xyz/v1/image-classification \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
-  -F "image=@image.jpg"
+  -F "images=@image.jpg"
 ```
 </RequestExample>
 
