@@ -4,12 +4,17 @@ api: 'POST /v1/speech-to-text'
 description: 'Convert audio to text using speech recognition'
 ---
 
-Convert WAV audio files to text using speech recognition.
+Convert audio or video files to text using speech recognition. Supports various audio and video formats.
 
 ### Body
 
-<ParamField body="audio" type="string" format="binary" required>
-  Audio file to transcribe
+<ParamField body="audio" type="string" format="binary">
+  Audio or video file to transcribe (mutually exclusive with url)
+</ParamField>
+
+<ParamField body="url" type="string">
+  URL to audio or video file to transcribe (mutually exclusive with audio)
+  Example: "https://example.com/media.mp4"
 </ParamField>
 
 ### Query Parameters
@@ -29,10 +34,18 @@ Convert WAV audio files to text using speech recognition.
   Example: true
 </ParamField>
 
+<ParamField query="webvtt" type="boolean">
+  Generate WebVTT caption output (requires returnTimestamps=true)
+  Example: true
+</ParamField>
+
 ### Response
 
-<ResponseField name="data" type="string">
-  The transcription result
+<ResponseField name="data" type="object">
+  The transcription result object containing:
+  - text: The transcribed text content
+  - chunks: Array of segments with timestamps (when returnTimestamps=true)
+  - webvtt: WebVTT formatted captions (when webvtt=true and returnTimestamps=true)
 </ResponseField>
 
 ### Status Codes
@@ -55,19 +68,49 @@ Convert WAV audio files to text using speech recognition.
 
 <RequestExample>
 ```bash
+# Example with audio file
 curl -X POST https://api.woolball.xyz/v1/speech-to-text \
   -H "Authorization: Bearer <YOUR_API_KEY>" \
   -F "audio=@input.wav;type=audio/wav" \
-  -F "model=onnx-community/whisper-large-v3-turbo" \
+  -F "model=onnx-community/whisper-large-v3-turbo_timestamped" \
+  -F "outputLanguage=pt" \
+  -F "returnTimestamps=true" \
+  -F "webvtt=true"
+
+# Example with video file (using audio field)
+curl -X POST https://api.woolball.xyz/v1/speech-to-text \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "audio=@input.mp4;type=video/mp4" \
+  -F "model=onnx-community/whisper-large-v3-turbo_timestamped" \
   -F "outputLanguage=pt" \
   -F "returnTimestamps=true"
+
+# Example with URL
+curl -X POST https://api.woolball.xyz/v1/speech-to-text \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "url=https://example.com/media.mp4" \
+  -F "model=onnx-community/whisper-large-v3-turbo_timestamped" \
+  -F "outputLanguage=pt"
 ```
 </RequestExample>
 
 <ResponseExample>
 ```json
 {
-  "data": "Transcribed text content"
+  "data": {
+    "text": "Transcribed text content",
+    "chunks": [
+      {
+        "timestamp": [0, 2.5],
+        "text": "First segment"
+      },
+      {
+        "timestamp": [2.5, 5.0],
+        "text": "Second segment"
+      }
+    ],
+    "webvtt": "WEBVTT\n\n00:00:00.000 --> 00:00:02.500\nFirst segment\n\n00:00:02.500 --> 00:00:05.000\nSecond segment"
+  }
 }
 ```
 </ResponseExample>
